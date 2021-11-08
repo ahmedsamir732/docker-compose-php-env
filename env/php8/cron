@@ -1,0 +1,1 @@
+* * * * * /usr/local/bin/php /code/Engaz_Micro_services/artisan schedule:run --scheduleFile=@root/schedule/schedule.php 1>> /dev/null 2>&1
