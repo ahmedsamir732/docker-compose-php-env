@@ -4,7 +4,7 @@ services:
     image: nginx:1.11-alpine
     volumes:
       - ${CODE_DIR}:/code
-      - ./env/config/site.conf:/etc/nginx/conf.d/site.conf
+      - ./env/config/:/etc/nginx/conf.d/
       - ./env/cert:/certs
     ports:
       - "8888:80"
