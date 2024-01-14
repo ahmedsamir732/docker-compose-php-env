@@ -18,9 +18,13 @@ RUN  apt-get update \
     
 RUN  echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc
 
-RUN apt-get install -y supervisor
+# RUN apt-get install -y supervisor
 
 RUN apt-get install -y cron
+
+RUN  apt-get update \
+	&& apt-get install nodejs -y \
+    && npm install pm2 -g
 
 RUN apt-get update && apt-get install -y libc-client-dev libkrb5-dev && rm -r /var/lib/apt/lists/*
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
