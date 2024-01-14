@@ -1,12 +1,9 @@
-FROM php:8.0-fpm
+FROM php:8.1-fpm
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libmcrypt-dev \
         libpng-dev \
-    && pecl install mcrypt-1.0.4 \
-    && docker-php-ext-enable mcrypt \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 	
@@ -23,15 +20,16 @@ RUN  echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc
 RUN apt-get install -y cron
 
 RUN  apt-get update \
-	&& apt-get install nodejs -y \
-    && npm install pm2 -g
+        && apt-get install nodejs -y \
+        && apt-get install npm -y \
+        && npm install pm2 -g
 
 RUN apt-get update && apt-get install -y libc-client-dev libkrb5-dev && rm -r /var/lib/apt/lists/*
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-install imap
 
 
-RUN pecl install mongodb-1.9.0
+RUN pecl install mongodb-1.15.0
 
 RUN echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
 
